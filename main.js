@@ -11,70 +11,50 @@ function isPrime(num) {
   return true;
 }
 
-class DataClass {
-  constructor(arr) {
-    this._data = arr;
+class Data {
+  constructor(data) {
+    this._data = data;
   }
-
   get data() {
     return this._data;
   }
-
-  set data(param1) {
-    this._data = param1;
+  set data(data) {
+    this._data = data;
   }
-
-  static combine(obj1, obj2) {
-    return obj1.data.concat(obj2.data);
-  }
-
-  static getPrimes(obj1) {
-    let result = [];
-    for (let i = 0; i < obj1.data.length; i++) {
-      const element = obj1.data[i];
-      if (isPrime(element)) {
-        result.push(element);
-      }
-    }
-    return result;
+  
+  maxNumber(){
+    return Math.max(...this._data);
   }
 
   reverseSort() {
     this._data.sort((a, b) => b - a);
   }
-
-  getMax() {
-    let max = -1;
-    for (let i = 0; i < this._data.length; i++) {
-      const element = this._data[i];
-      if (element > max) {
-        max = element;
-      }
-    }
-    return max;
+  static combine(obj1, obj2) {
+    const merged = obj1.data.concat(obj2.data)
+    return merged
+  }
+  static getPrimes(obj){
+    const primes = obj.data.filter((num) => isPrime(num));
+    return primes;
   }
 }
+let data = new Data(dataArr);
+let data2 = new Data([1, 8, 3, 0, 2, 9, 8, 5])
+console.log("Raw data:");
+console.log(data._data);
 
-class NotData {}
+console.log("Data form getter:");
+console.log(data.data);
 
-let firstObj = new DataClass(dataArr);
-let secondObj = new DataClass([3, 6, 29, 300]);
-let notObject = new NotData();
+console.log("Max number:");
+console.log(data.maxNumber());
 
-if (firstObj instanceof DataClass) {
-  console.log(true);
-} else {
-  console.log(false);
-}
+console.log("Reverse sort:");
+data.reverseSort();
+console.log(data._data);
 
-// console.log(firstObj);
-// console.log(secondObj);
+console.log("Combined:");
+console.log(Data.combine(data, data2));
 
-// console.log(firstObj.getMax());
-// console.log(secondObj);
-// secondObj.reverseSort();
-// console.log(secondObj);
-
-// let result = DataClass.combine(firstObj, secondObj);
-// let result = DataClass.getPrimes(firstObj);
-// console.log(result);
+console.log("Primes:");
+console.log(Data.getPrimes(data))
